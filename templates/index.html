@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generation and Summarization tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e18888',
+                        secondary: '#fbd1d1',
+                        background: {
+                            light: '#fbeaea',
+                            dark: '#25313d',
+                        },
+                        text: {
+                            light: '#1F2937',
+                            dark: '#F3F4F6',
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark transition-colors duration-200">
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
+        <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+            <h1 class="text-xl font-bold text-primary dark:text-primary">Warmdrobe</h1>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4" id="history-tabs">
+            <!-- History tabs will be added here dynamically -->
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+            <button id="new-chat" class="w-full bg-primary hover:bg-primary-600 text-white font-bold py-2 px-4 rounded">
+                New Chat
+            </button>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col">
+        <!-- Tab bar -->
+        <div id="tab-bar" class="flex bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"></div>
+
+        <!-- Chat area -->
+        <div id="chat-area" class="flex-1 overflow-y-auto p-4 bg-background-light dark:bg-background-dark">
+            <!-- Chat messages will be added here dynamically -->
+        </div>
+
+        <!-- Input area -->
+        <div class="border-t border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
+            <div class="flex items-center mb-2">
+                <button id="mode-toggle" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 mr-2">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <select id="task-select" class="flex-1 border border-gray-300 dark:border-gray-600 rounded-l px-4 py-2 bg-white dark:bg-gray-700 text-text-light dark:text-text-dark">
+                    <option value="generate">Generate</option>
+                    <option value="summarize">Summarize</option>
+                </select>
+                <button id="import-btn" class="bg-secondary text-white px-4 py-2 rounded-r" style="display: none;">
+                    Import
+                </button>
+            </div>
+            <div class="flex">
+                <input type="text" id="user-input" class="flex-1 border border-gray-300 dark:border-gray-600 rounded-l px-4 py-2 bg-white dark:bg-gray-700 text-text-light dark:text-text-dark" placeholder="Type your message...">
+                <button id="send-btn" class="bg-primary text-white px-4 py-2 rounded-r">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import modal -->
+<div id="import-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-96">
+        <h2 class="text-xl font-bold mb-4 text-text-light dark:text-text-dark">Import Content</h2>
+        <input type="text" id="url-input" class="w-full border border-gray-300 dark:border-gray-600 rounded px-4 py-2 mb-4 bg-white dark:bg-gray-700 text-text-light dark:text-text-dark" placeholder="Enter URL">
+        <input type="file" id="file-input" class="w-full mb-4 text-text-light dark:text-text-dark" accept=".txt,.pdf,.docx">
+        <div class="flex justify-end">
+            <button id="cancel-import" class="bg-gray-300 dark:bg-gray-600 text-text-light dark:text-text-dark px-4 py-2 rounded mr-2">Cancel</button>
+            <button id="confirm-import" class="bg-primary text-white px-4 py-2 rounded">Import</button>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
