@@ -12,7 +12,7 @@ import docx
 app = Flask(__name__)
 
 # Set up AI21 API client
-ai21_client = AI21Client(api_key="19bbWiBpNcGf3hhpeLdxnW4gVfeAvpp5")
+ai21_client = AI21Client(api_key="AI_21_API")
 
 # Check if CUDA is available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
